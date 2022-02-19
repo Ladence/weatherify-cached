@@ -30,6 +30,7 @@ func (c *Client) GetCurrent(ctx context.Context, accessKey string, city string) 
 		c.log.Errorf("Error on GET /weatherstack/current. Error: %v", err)
 		return nil, err
 	}
+	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
 	if err = json.Unmarshal(body, result); err != nil {
 		c.log.Errorf("Error on GET /weatherstack/current when unmarshalling answer. Error: %v", err)
