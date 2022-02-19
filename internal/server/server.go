@@ -30,8 +30,8 @@ func NewServer(log *logrus.Logger, config *config.Config, client *weatherstack.C
 		weatherstackClient: client,
 	}
 
-	if s.config.UseRedis {
-		s.redisCache = newRedisCache()
+	if s.config.Redis != nil {
+		s.redisCache = newRedisCache(s.config.Redis)
 	}
 	return s, nil
 }
