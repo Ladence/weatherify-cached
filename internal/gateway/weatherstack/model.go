@@ -10,7 +10,7 @@ type Current struct {
 	WindDegree          int      `json:"wind_degree"`
 	WindDir             string   `json:"wind_dir"`
 	Pressure            int      `json:"pressure"`
-	Precip              int      `json:"precip"`
+	Precip              float32  `json:"precip"`
 	Humidity            int      `json:"humidity"`
 	CloudOver           int      `json:"cloudover"`
 	FeelsLike           int      `json:"feelslike"`

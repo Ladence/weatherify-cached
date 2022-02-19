@@ -59,7 +59,7 @@ func (s *Server) Run() error {
 			if err := s.redisCache.Set(&cache.Item{
 				Ctx:   ctx.Background(),
 				Key:   context.Query("city"),
-				Value: nil,
+				Value: weather,
 				TTL:   time.Hour,
 			}); err != nil {
 				s.log.Debugf("Failed to place in Redis cache. Error: %v", err)

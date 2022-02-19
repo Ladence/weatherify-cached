@@ -34,7 +34,7 @@ func (s *Server) cacheMw(context *gin.Context) {
 	cacheKey := context.Query("city")
 	err := s.redisCache.Get(ctx.Background(), cacheKey, wanted)
 	if err != nil {
-		s.log.Errorf("Error on redisCache.Get. %v", err)
+		s.log.Debugf("Error on redisCache.Get. %v", err)
 		return
 	}
 	s.log.Infof("Pulled from Redis cache. Weather: %+v", wanted)

@@ -27,13 +27,14 @@ func (c *Client) GetCurrent(ctx context.Context, accessKey string, city string) 
 	result := &GetCurrentResponse{}
 	resp, err := c.client.Get(fmt.Sprintf("%s?access_key=%s&query=%s", Url+"/current", accessKey, city))
 	if err != nil {
-		c.log.Errorf("Error on GET /weatherstack/current. Error: %v", err)
 		return nil, err
+	}
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("non 200 HTTP code")
 	}
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
 	if err = json.Unmarshal(body, result); err != nil {
-		c.log.Errorf("Error on GET /weatherstack/current when unmarshalling answer. Error: %v", err)
 		return nil, err
 	}
 	return result, nil
