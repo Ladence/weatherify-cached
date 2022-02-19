@@ -1,7 +1,6 @@
 package domain
 
 type Weather struct {
-	Id          int    `json:"id"`
-	Main        string `json:"main"`
-	Description string `json:"description"`
+	Temperature int     `json:"temperature"`
+	Description *string `json:"description,omitempty"`
 }

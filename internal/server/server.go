@@ -4,6 +4,7 @@ import (
 	ctx "context"
 	"fmt"
 	"github.com/Ladence/weatherify-cached/internal/config"
+	"github.com/Ladence/weatherify-cached/internal/conv"
 	"github.com/Ladence/weatherify-cached/internal/gateway/weatherstack"
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/cache/v8"
@@ -43,9 +44,16 @@ func (s *Server) Run() error {
 		if err != nil {
 			s.log.Errorf("Error when handling external request. Error :%v", err)
 			context.Status(501)
+			return
 		}
 		s.log.Infof("Current: %+v", *current)
-		context.Status(201)
+		weather, err := conv.CurrentToWeather(&current.Current)
+		if err != nil {
+			s.log.Errorf("Error on conversion weatherstack.current -> model.weather. Error: %v", err)
+			context.Status(501)
+			return
+		}
+		context.JSON(200, *weather)
 		if s.redisCache != nil {
 			s.log.Debugf("Placing to Redis cache.")
 			if err := s.redisCache.Set(&cache.Item{
