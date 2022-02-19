@@ -30,11 +30,5 @@ func (s *Server) cacheMw(context *gin.Context) {
 	err := s.redisCache.Get(ctx.Background(), cacheKey, wanted)
 	if err != nil {
 		s.log.Errorf("Error on redisCache.Get. %v", err)
-		s.redisCache.Set(&cache.Item{
-			Ctx:   ctx.Background(),
-			Key:   cacheKey,
-			Value: nil,
-			TTL:   time.Hour,
-		})
 	}
 }

@@ -1,0 +1,7 @@
+{
+  "use_redis": false,
+  "port": "12337",
+  "weatherstack": {
+    "access_key": ""
+  }
+}
