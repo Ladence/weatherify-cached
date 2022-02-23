@@ -22,6 +22,7 @@ FROM scratch
 # Copy binary and config files from /build
 # to root folder of scratch container.
 COPY --from=builder ["/build/weatherify", "/"]
+COPY --from=builder ["/build/config.json", "/"]
 
 # Export necessary port.
 EXPOSE 12337

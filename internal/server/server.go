@@ -67,5 +67,5 @@ func (s *Server) Run() error {
 		}
 	})
 
-	return r.Run("localhost:" + s.config.Port)
+	return r.Run("0.0.0.0:" + s.config.Port)
 }
